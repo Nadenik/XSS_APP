@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+<script src="{% static 'website/js/scripts.js' %}"></script> 
+<br>
+<img src="{% static 'reflected_xss/images/google.png' %}" alt="My image">
+
+<form class="ml-2" action="" method="get">
+    {% csrf_token %}
+<input type="text" name="search" id="search-text">
+<input type="submit" value="Search">
+</form>
+<br>
+{% if search %}
+<p class="ml-2">No results found for {{ search|safe }}</p>
+{% endif %}
+
+{% endblock content %}

@@ -1,5 +1,38 @@
 {% extends 'base.html' %}
 
 {% block content %}
-We learn here
+<h1>MODULES</h1>
+<br>
+<br>
+<a href='{% url 'reflected_xss' %}'>
+    <div class="card text-white bg-secondary m-3" style="max-width: 18rem;">
+        <div class="card-header">Reflected XSS module</div>
+        <div class="card-body">
+      
+          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin non molestie tortor.</p>
+        </div>
+      </div>
+</a>
+
+<a href='{% url 'reflected_xss' %}'>
+  <div class="card text-white bg-secondary m-3" style="max-width: 18rem;">
+      <div class="card-header">Stored XSS module</div>
+      <div class="card-body">
+        
+        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin non molestie tortor.</p>
+      </div>
+    </div>
+</a>
+
+<a href='{% url 'reflected_xss' %}'>
+  <div class="card text-white bg-secondary m-3" style="max-width: 18rem;">
+      <div class="card-header">DOM-Based XSS module</div>
+      <div class="card-body">
+        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin non molestie tortor.</p>
+      </div>
+    </div>
+</a>
+
+
+<br>
 {% endblock content %}

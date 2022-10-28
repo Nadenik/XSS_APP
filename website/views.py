@@ -11,7 +11,9 @@ def sign_up_view(request):
         form = MyUserCreationForm
         return render(request, 'registration/sign_up.html', {'form':form})
     elif request.method == 'POST':
+        print(request.POST)
         form = MyUserCreationForm(request.POST)
+        print(form)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/')
@@ -29,5 +31,3 @@ def learn_view(request):
 @login_required
 def profile_view(request):
     return render(request, 'website/profile.html', {})    
-
-
