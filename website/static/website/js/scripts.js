@@ -1,11 +1,11 @@
 function xss() {
     var xhr = new XMLHttpRequest();
-    let method = 'POST'
-    let url = ''
+    const method = 'POST'
+    const url = ''
     xhr.open(method,url)
     xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
     xhr.onload = () => {
-        console.log(xhr.responseURL); // http://example.com/test
+        alert("Congratulations!")
       };
     xhr.send()
 }

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+<script src="{% static 'dom_based_xss/js/scripts.js' %}"></script>
+<script src="{% static 'website/js/scripts.js' %}"></script> 
+
+
+<img src="{% static 'dom_based_xss/images/facebook.png' %}">
+
+<form id="tweetForm" action="" method="POST">
+{% csrf_token %}
+<div class="form-group ml-2">
+    <label for="tweetText">Write your tweet</label>
+    <textarea class="form-control" id="tweetText" rows="3" name="tweetText"></textarea>
+</div>
+<div class="form-group ml-2">
+    <input class="btn btn-primary" type="submit" value="Tweet">
+</div>
+<div id="tweet-container"></div>
+</form>
+{% endblock content %}

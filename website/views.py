@@ -3,8 +3,9 @@ from .forms import MyUserCreationForm
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, authenticate
 
-# Create your views here.
+
 def sign_up_view(request):
 
     if request.method == 'GET':
@@ -16,6 +17,10 @@ def sign_up_view(request):
         print(form)
         if form.is_valid():
             form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
             return HttpResponseRedirect('/')
         else:
             return HttpResponseRedirect('/')

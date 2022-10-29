@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'website',
-    'reflected_xss'
+    'reflected_xss',
+    'dom_based_xss'
 ]
 
 MIDDLEWARE = [
