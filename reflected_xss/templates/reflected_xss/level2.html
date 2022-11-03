@@ -3,11 +3,12 @@
 {% block content %}
 
 {% load static %}
-<script src="{% static 'website/js/scripts.js' %}"></script> 
+<script src="{% static 'website/js/scripts.js' %}"></script>
+<script src="{% static 'reflected_xss/js/scripts.js' %}"></script>
 <br>
 <img src="{% static 'reflected_xss/images/google.png' %}" alt="My image">
 
-<form class="ml-2" action="" method="get">
+<form class="ml-2" action="" method="get" onsubmit="sanitizeForm()">
 <input type="text" name="search" id="search-text">
 <input type="submit" value="Search">
 </form>

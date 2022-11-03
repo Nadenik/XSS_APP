@@ -23,5 +23,6 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/sign_up/', sign_up_view, name='sign_up'),
     path('learn/', include('reflected_xss.urls')),
-    path('learn/', include('dom_based_xss.urls'))
+    path('learn/', include('dom_based_xss.urls')),
+    path('learn/', include('stored_xss.urls'))
 ]

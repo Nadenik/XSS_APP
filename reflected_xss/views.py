@@ -3,8 +3,9 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from website.models import ReflectedXssModule
 from django.contrib.auth.models import User
-from utils.utils import update_user_progress
+from utils.utils import update_user_progress, previous_challenge_completed
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 
 # main reflected xss module page
 @login_required
@@ -27,7 +28,8 @@ def introduction_view(request):
 # level one
 @login_required
 def level1_view(request):
-
+    if not previous_challenge_completed(request, '1'):
+        raise PermissionDenied
     if request.method == 'GET' and 'search' not in request.GET:
         return render(request, 'reflected_xss/level1.html', {})
 
@@ -40,4 +42,22 @@ def level1_view(request):
     elif request.method == 'POST':
         # update challenge progress
         update_user_progress(request, '11')
+        return HttpResponseRedirect(reverse('reflected_xss'))
+
+@login_required
+def level2_view(request):
+    if not previous_challenge_completed(request, '11'):
+        raise PermissionDenied
+    if request.method == 'GET' and 'search' not in request.GET:
+        return render(request, 'reflected_xss/level2.html', {})
+
+    elif request.method == 'GET' and 'search' in request.GET:
+        context = {
+            "search":request.GET.get("search")
+        }
+        return render(request, 'reflected_xss/level2.html', context)
+
+    elif request.method == 'POST':
+        # update challenge progress
+        update_user_progress(request, '111')
         return HttpResponseRedirect(reverse('reflected_xss'))

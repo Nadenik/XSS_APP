@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Reflected XSS module</h1>
+<div class="list-group mr-2 ml-2"> 
+    <a href="{% url 'stored_xss_introduction' %}" class="list-group-item list-group-item-action list-group-item-secondary mb-1">Introduction</a>
+    <a href="{% url 'stored_xss_level1' %}" class="list-group-item list-group-item-action list-group-item-secondary mb-1">Level 1</a>
+    <a href="{% url 'stored_xss_level2' %}" class="list-group-item list-group-item-action list-group-item-dark">Level 2</a>
+    
+  </div>
+  {% comment %} <a href="{% url 'reflected_xss_introduction' %}" class="list-group-item list-group-item-action list-group-item-{% if module.challenge_completition >= 1 %}success{% else %}secondary{% endif %} mb-1">Introduction</a>
+  {% if module.challenge_completition >= 1 %}
+  <a href="{% url 'reflected_xss_level1' %}" class="list-group-item list-group-item-action list-group-item-{% if module.challenge_completition >= 3 %}success{% else %}secondary{% endif %} mb-1">Level 1</a>
+  {% endif %}
+  {% if module.challenge_completition >= 3 %}
+  <a href="{% url 'reflected_xss_level2' %}" class="list-group-item list-group-item-action list-group-item-{% if module.challenge_completition >= 7 %}success{% else %}dark{% endif %}">Level 2</a>
+  {% endif %} {% endcomment %}
+{% endblock content %}

@@ -12,16 +12,14 @@ def sign_up_view(request):
         form = MyUserCreationForm
         return render(request, 'registration/sign_up.html', {'form':form})
     elif request.method == 'POST':
-        print(request.POST)
         form = MyUserCreationForm(request.POST)
-        print(form)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return HttpResponseRedirect('/')
+            return redirect(reverse("/"))
         else:
             return HttpResponseRedirect('/')
 

@@ -3,8 +3,12 @@
 {% block content %}
 <h1>DOM-Based XSS Module </h1>
 <div class="list-group mr-2 ml-2"> 
-    <a href="{% url 'dom_based_xss_introduction' %}" class="list-group-item list-group-item-action list-group-item-{% if module.challenge_completition >= 1 %}success{% else %}dark{% endif %} mb-1">Introduction</a>
-    <a href="{% url 'dom_based_xss_level1' %}" class="list-group-item list-group-item-action list-group-item-{% if module.challenge_completition >= 3 %}success{% else %}dark{% endif %} mb-1">Level 1</a>
-    <a href="#" class="list-group-item list-group-item-action list-group-item-{% if module.challenge_completition >= 7 %}success{% else %}dark{% endif %}">Level 2</a>
+    <a href="{% url 'dom_based_xss_introduction' %}" class="list-group-item list-group-item-action list-group-item-{% if module.challenge_completition >= 1 %}success{% else %}secondary{% endif %} mb-1">Introduction</a>
+    {% if module.challenge_completition >= 1 %}
+    <a href="{% url 'dom_based_xss_level1' %}" class="list-group-item list-group-item-action list-group-item-{% if module.challenge_completition >= 3 %}success{% else %}secondary{% endif %} mb-1">Level 1</a>
+    {% endif %}
+    {% if module.challenge_completition >= 3 %}
+    <a href="#" class="list-group-item list-group-item-action list-group-item-{% if module.challenge_completition >= 7 %}success{% else %}secondary{% endif %}">Level 2</a>
+  {% endif %}
   </div>
 {% endblock content %}

@@ -1,11 +1,12 @@
 from django.shortcuts import render
-from utils.utils import update_user_progress
+from utils.utils import update_user_progress, previous_challenge_completed
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from website.models import DomBasedXssModule
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 # Create your views here.
 
 @login_required
@@ -25,6 +26,8 @@ def dom_based_xss_introduction(request):
 
 @login_required
 def dom_based_xss_level1(request):
+    if not previous_challenge_completed(request, '1'):
+        raise PermissionDenied
     if request.method == 'GET':
         return render(request, 'dom_based_xss/dom_based_xss_level1.html', {})
     elif request.method == 'POST':

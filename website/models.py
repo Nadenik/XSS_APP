@@ -6,6 +6,13 @@ class Module(models.Model):
     is_completed = models.BooleanField(default=False)
     challenge_completition = models.IntegerField(default=0)
     user = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE)
+
+    def next_challenge_allowed(self, challenge_progress):
+        if self.challenge_completition >= challenge_progress:
+            return True
+        else:
+            return False
+
     class Meta:
         abstract = True
 
