@@ -4,3 +4,4 @@ from .models import *
 
 admin.site.register(ReflectedXssModule)
 admin.site.register(DomBasedXssModule)
+admin.site.register(StoredXssModule)

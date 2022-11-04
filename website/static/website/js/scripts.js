@@ -5,7 +5,7 @@ function xss() {
     xhr.open(method,url)
     xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
     xhr.onload = () => {
-        alert("Congratulations!")
+        $("#congrats-modal").modal("toggle");
       };
     xhr.send()
 }

@@ -1,4 +1,4 @@
-from website.models import ReflectedXssModule, DomBasedXssModule
+from website.models import ReflectedXssModule, DomBasedXssModule, StoredXssModule
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 
@@ -26,11 +26,13 @@ def get_module_object(module_name, user):
         return get_object_or_404(ReflectedXssModule, user=user)
     elif module_name == 'dom_based_xss':
         return get_object_or_404(DomBasedXssModule, user=user)
+    elif module_name == 'stored_xss':
+        return get_object_or_404(StoredXssModule, user=user)
     else:
         raise Exception(f'We have no module named {module_name}')
 
-# check if previous challenge has been completed, returns boolean
-def previous_challenge_completed(request, required_completition_number):
+# check if challenge has been completed, returns boolean
+def challenge_completed(request, required_completition_number):
     list = request.path.split('/')
     module_name = list[-2]
 
@@ -41,4 +43,3 @@ def previous_challenge_completed(request, required_completition_number):
         return True
     else:
         return False
-

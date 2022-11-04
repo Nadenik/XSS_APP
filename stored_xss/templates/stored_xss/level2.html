@@ -1,5 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-level2
+{% load static %}
+<script src="{% static 'website/js/scripts.js' %}"></script>
+<script src="{% static 'stored_xss/js/scripts.js' %}"></script>
+<h1>Level 2</h1>
+<br>
+<form action="level2_create_comment" method="post" onsubmit="sanitizeForm()">
+    {% csrf_token %}
+    <label for="comment-id">Comment me!</label>
+    <input type="text" name="comment" id="comment-id">
+    <input type="submit" value="Comment">
+</form>
+<div id="comment-container">
+    {% for comment in comments %}
+    <p>
+    {{ comment|safe }}
+    </p>
+    {% endfor %}
+</div>
 {% endblock content %}
+

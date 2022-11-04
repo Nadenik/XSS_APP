@@ -19,7 +19,7 @@ def sign_up_view(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect(reverse("/"))
+            return redirect(reverse('home'))
         else:
             return HttpResponseRedirect('/')
 

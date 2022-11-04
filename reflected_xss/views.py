@@ -1,9 +1,9 @@
-from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from website.models import ReflectedXssModule
 from django.contrib.auth.models import User
-from utils.utils import update_user_progress, previous_challenge_completed
+from utils.utils import update_user_progress, challenge_completed
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 
@@ -23,30 +23,33 @@ def introduction_view(request):
         return render(request, 'reflected_xss/introduction.html', {})
     if request.method == 'POST':
         update_user_progress(request, '1')
-        return HttpResponseRedirect(reverse('reflected_xss'))
-
+        return redirect('reflected_xss')
 # level one
 @login_required
 def level1_view(request):
-    if not previous_challenge_completed(request, '1'):
+    if not challenge_completed(request, '1'):
         raise PermissionDenied
     if request.method == 'GET' and 'search' not in request.GET:
-        return render(request, 'reflected_xss/level1.html', {})
+        context = {
+            'completed': challenge_completed(request, '11')
+        }
+        return render(request, 'reflected_xss/level1.html', context)
 
     elif request.method == 'GET' and 'search' in request.GET:
         context = {
-            "search":request.GET.get("search")
+            "search":request.GET.get("search"),
+            'completed': challenge_completed(request, '11')
         }
         return render(request, 'reflected_xss/level1.html', context)
 
     elif request.method == 'POST':
         # update challenge progress
         update_user_progress(request, '11')
-        return HttpResponseRedirect(reverse('reflected_xss'))
-
+        return HttpResponse(status=204)
+# level two
 @login_required
 def level2_view(request):
-    if not previous_challenge_completed(request, '11'):
+    if not challenge_completed(request, '11'):
         raise PermissionDenied
     if request.method == 'GET' and 'search' not in request.GET:
         return render(request, 'reflected_xss/level2.html', {})

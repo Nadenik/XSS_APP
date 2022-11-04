@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from utils.utils import update_user_progress, previous_challenge_completed
+from utils.utils import update_user_progress, challenge_completed
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from website.models import DomBasedXssModule
@@ -26,7 +26,7 @@ def dom_based_xss_introduction(request):
 
 @login_required
 def dom_based_xss_level1(request):
-    if not previous_challenge_completed(request, '1'):
+    if not challenge_completed(request, '1'):
         raise PermissionDenied
     if request.method == 'GET':
         return render(request, 'dom_based_xss/dom_based_xss_level1.html', {})
