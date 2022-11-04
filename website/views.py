@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
+from utils.utils import get_module_object
 
 
 def sign_up_view(request):
@@ -33,4 +34,8 @@ def learn_view(request):
 
 @login_required
 def profile_view(request):
-    return render(request, 'website/profile.html', {})    
+    reflected_xss_object = get_module_object('reflected_xss', request.user.id)
+    context = {
+        'reflected_xss': reflected_xss_object
+    }
+    return render(request, 'website/profile.html', context)    

@@ -5,4 +5,12 @@
 {% if user.is_authenticated %}
         <a class="ml-2" href="{% url 'password_change' %}">Change password</a>
     {% endif %}
+    <br>
+Reflected XSS Module Progress
+    <div class="progress border border-info">
+        <div class="progress-bar bg-success text-dark" role="progressbar" aria-valuenow="{{reflected_xss.get_progress}}"
+        aria-valuemin="0" aria-valuemax="100" style="width: {{reflected_xss.get_progress}}%">
+        {{reflected_xss.get_progress}}% Complete
+        </div>
+      </div>
 {% endblock content %}

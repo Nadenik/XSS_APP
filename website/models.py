@@ -24,9 +24,10 @@ class Module(models.Model):
 
 class ReflectedXssModule(Module):
     name = models.CharField(max_length=30, default='reflected_xss')
-
+    # progress in %
     def get_progress(self):
-        return "{0:b}".format(self.challenge_completition)
+        xd = "{0:b}".format(self.challenge_completition).count("1")
+        return int((xd/3)*100)
 
 class DomBasedXssModule(Module):
     name = models.CharField(max_length=30, default='dom_based_xss')
