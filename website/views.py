@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
-from utils.utils import get_module_object
+from utils.utils import get_module_or_none
 
 
 def sign_up_view(request):
@@ -34,8 +34,12 @@ def learn_view(request):
 
 @login_required
 def profile_view(request):
-    reflected_xss_object = get_module_object('reflected_xss', request.user.id)
+    reflected_xss_object = get_module_or_none('reflected_xss', request.user.id)
+    stored_xss_object = get_module_or_none('stored_xss', request.user.id)
+    dom_xss_object = get_module_or_none('dom_based_xss', request.user.id)
     context = {
-        'reflected_xss': reflected_xss_object
+        'reflected_xss': reflected_xss_object,
+        'stored_xss': stored_xss_object,
+        'dom_based_xss': dom_xss_object
     }
-    return render(request, 'website/profile.html', context)    
+    return render(request, 'website/profile.html', context)

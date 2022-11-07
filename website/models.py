@@ -12,6 +12,10 @@ class Module(models.Model):
             return True
         else:
             return False
+    # progress in %
+    def get_progress(self):
+        x = "{0:b}".format(self.challenge_completition).count("1")
+        return int((x/3)*100)
 
     class Meta:
         abstract = True
@@ -24,10 +28,6 @@ class Module(models.Model):
 
 class ReflectedXssModule(Module):
     name = models.CharField(max_length=30, default='reflected_xss')
-    # progress in %
-    def get_progress(self):
-        xd = "{0:b}".format(self.challenge_completition).count("1")
-        return int((xd/3)*100)
 
 class DomBasedXssModule(Module):
     name = models.CharField(max_length=30, default='dom_based_xss')

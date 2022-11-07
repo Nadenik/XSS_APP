@@ -6,11 +6,34 @@
         <a class="ml-2" href="{% url 'password_change' %}">Change password</a>
     {% endif %}
     <br>
+
+{% if reflected_xss %}
 Reflected XSS Module Progress
-    <div class="progress border border-info">
+    <div class="progress border border-info" style="height: 30px;">
         <div class="progress-bar bg-success text-dark" role="progressbar" aria-valuenow="{{reflected_xss.get_progress}}"
         aria-valuemin="0" aria-valuemax="100" style="width: {{reflected_xss.get_progress}}%">
         {{reflected_xss.get_progress}}% Complete
         </div>
       </div>
+      {% endif %}
+      
+      {% if stored_xss %}
+      Stored XSS Module Progress
+      <div class="progress border border-info" style="height: 30px;">
+          <div class="progress-bar bg-success text-dark" role="progressbar" aria-valuenow="{{stored_xss.get_progress}}"
+          aria-valuemin="0" aria-valuemax="100" style="width: {{stored_xss.get_progress}}%">
+          {{stored_xss.get_progress}}% Complete
+          </div>
+        </div>
+        {% endif %}
+        
+        {% if dom_based_xss %}
+        DOM-Based XSS Module Progress
+    <div class="progress border border-info" style="height: 30px;">
+        <div class="progress-bar bg-success text-dark" role="progressbar" aria-valuenow="{{dom_based_xss.get_progress}}"
+        aria-valuemin="0" aria-valuemax="100" style="width: {{dom_based_xss.get_progress}}%">
+        {{dom_based_xss.get_progress}}% Complete
+        </div>
+      </div>
+      {% endif %}
 {% endblock content %}

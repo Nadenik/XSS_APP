@@ -9,5 +9,8 @@ urlpatterns = [
     path('stored_xss/level2', level2_view, name='stored_xss_level2'),
     # create comment endpoints
     path('stored_xss/level1_create_comment', level1_create_comment, name='stored_xss_level1_create_comment'),
-    path('stored_xss/level2_create_comment', level2_create_comment, name='stored_xss_level2_create_comment')
+    path('stored_xss/level2_create_comment', level2_create_comment, name='stored_xss_level2_create_comment'),
+    # delete comment endpoints
+    path('stored_xss/level1_delete_comment/<int:id>', level1_delete_comment, name="stored_xss_level1_delete_comment"),
+    path('stored_xss/level2_delete_comment/<int:id>', level2_delete_comment, name="stored_xss_level2_delete_comment")
 ]

@@ -3,6 +3,7 @@
 {% block content %}
 {% load static %}
 <script src="{% static 'website/js/scripts.js' %}"></script>
+<script src="{% static 'stored_xss/js/scripts.js' %}"></script>
 <h1>Level 1</h1>
 <br>
 <form action="level1_create_comment" method="post">
@@ -13,10 +14,32 @@
 </form>
 <div id="comment-container">
     {% for comment in comments %}
-    <p>
+    <p id="comment{{comment.pk}}">
     {{ comment|safe }}
+    <button class="btn btn-danger" type="submit" onclick="delete_comment({{ comment.pk }})">Delete comment</button>
     </p>
     {% endfor %}
 </div>
+
+
+<div class="modal fade" id="congrats-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Congratulations</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          You have found a way to execute XSS payload into the site.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <a href='{% url 'stored_xss_level2' %}'><button type="button" class="btn btn-primary">Next challenge</button></a>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock content %}
 
