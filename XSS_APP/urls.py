@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from website.views import sign_up_view
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +27,4 @@ urlpatterns = [
     path('learn/', include('reflected_xss.urls')),
     path('learn/', include('dom_based_xss.urls')),
     path('learn/', include('stored_xss.urls'))
-]
+]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

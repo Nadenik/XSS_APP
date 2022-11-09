@@ -9,7 +9,12 @@
   {% endif %}
   {% if module.challenge_completition >= 3 %}
   <a href="{% url 'stored_xss_level2' %}" class="list-group-item list-group-item-action list-group-item-{% if module.challenge_completition >= 7 %}success{% else %}dark{% endif %}">Level 2</a>
-  </div>
+  
  
   {% endif %}
+  {% if module.challenge_completition >= 7 %}
+  <a href="{% url 'stored_xss_level3' %}" class="list-group-item list-group-item-action list-group-item-{% if module.challenge_completition >= 15 %}success{% else %}dark{% endif %}">Level 3</a>
+ 
+  {% endif %}
+</div>
 {% endblock content %}

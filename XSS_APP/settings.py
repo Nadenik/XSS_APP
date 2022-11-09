@@ -135,3 +135,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = 'home'
 
 LOGOUT_REDIRECT_URL = 'home'
+
+MEDIA_ROOT = 'C:/Users/Patryk/Desktop\/image_container'
+
+MEDIA_URL = '/images/'

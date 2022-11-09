@@ -21,8 +21,7 @@ def sign_up_view(request):
             user = authenticate(username=username, password=raw_password)
             login(request, user)
             return redirect(reverse('home'))
-        else:
-            return HttpResponseRedirect('/')
+        return render(request, 'registration/sign_up.html', {'form': form}) 
 
 
 def index(request):
