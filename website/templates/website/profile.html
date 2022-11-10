@@ -1,15 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<p class="m-2">Welcome on your profile context, {{user.username}}</p>
-{% if user.is_authenticated %}
-        <a class="ml-2" href="{% url 'password_change' %}">Change password</a>
-    {% endif %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'website/css/styles.css' %}">
+<section class="jumbotron text-center">
+    <div class="container">
+      <h1>Welcome on your profile {{user.username}}</h1>
+      <p class="lead">You can track your progress here!</p>
+
+        
     <br>
 
 {% if reflected_xss %}
 Reflected XSS Module Progress
-    <div class="progress border border-info" style="height: 30px;">
+    <div class="progress" style="height: 30px;">
         <div class="progress-bar bg-success text-dark" role="progressbar" aria-valuenow="{{reflected_xss.get_progress}}"
         aria-valuemin="0" aria-valuemax="100" style="width: {{reflected_xss.get_progress}}%">
         {{reflected_xss.get_progress}}% Complete
@@ -19,7 +23,7 @@ Reflected XSS Module Progress
       
       {% if stored_xss %}
       Stored XSS Module Progress
-      <div class="progress border border-info" style="height: 30px;">
+      <div class="progress" style="height: 30px;">
           <div class="progress-bar bg-success text-dark" role="progressbar" aria-valuenow="{{stored_xss.get_progress}}"
           aria-valuemin="0" aria-valuemax="100" style="width: {{stored_xss.get_progress}}%">
           {{stored_xss.get_progress}}% Complete
@@ -28,12 +32,20 @@ Reflected XSS Module Progress
         {% endif %}
         
         {% if dom_based_xss %}
-        DOM-Based XSS Module Progress
-    <div class="progress border border-info" style="height: 30px;">
+        DOM Based XSS Module Progress
+    <div class="progress" style="height: 30px;">
         <div class="progress-bar bg-success text-dark" role="progressbar" aria-valuenow="{{dom_based_xss.get_progress}}"
         aria-valuemin="0" aria-valuemax="100" style="width: {{dom_based_xss.get_progress}}%">
         {{dom_based_xss.get_progress}}% Complete
         </div>
       </div>
       {% endif %}
+      <hr>
+      <a class="ml-2" href="{% url 'password_change' %}"><button type="button" class="btn btn-warning">Change password</button></a>
+      
+<a href="#"><button type="button" class="btn btn-danger">Delete your account</button></a>
+    </div>
+
+</section>
+
 {% endblock content %}

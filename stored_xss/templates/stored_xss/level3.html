@@ -3,43 +3,83 @@
 {% block content %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'stored_xss/css/styles.css' %}">
+<script src="{% static 'website/js/scripts.js' %}"></script>
+<script src="{% static 'stored_xss/js/scripts.js' %}"></script>
 
 <section class="jumbotron text-center">
     <div class="container">
       <h1 class="jumbotron-heading">Welcome to Image Dropper!</h1>
       <p class="lead text-muted">You can upload or download copyright-free images here!</p>
-      <p>
-        <form action="{% url 'stored_xss_level3_create_image' %}" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="input-group mb-3">
-                <button class="btn btn-outline-primary" type="submit">Upload!</button>
-                <input type="file" class="form-control" name="image">
-                <input type="hidden" name="stored_xss_module_related" value="x">
+      <p>    
+    <div id="accordion">
+      <div class="card">
+        <div class="card-header" id="headingOne">
+          <h5 class="mb-0">
+            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+              Form 1
+            </button>
+          </h5>
+        </div>
+    
+        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+          <div class="card-body">
+            <form class="p-3" action="{% url 'stored_xss_level3_create_image' %}" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label for="comment-input" class="form-label">Upload your image!</label>
+                <input id="comment-input" class="form-control" type="text" name="description" placeholder="Provide brief image description">
               </div>
-        </form>
-        <form class="my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search for image" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+              <div class="input-group mb-3">
+                  <button class="btn btn-outline-primary" type="submit">Upload!</button>
+                  <input type="file" class="form-control" name="image">
+                  {% comment %} <input type="hidden" name="stored_xss_module_related" value="x"> {% endcomment %}
+                </div>
           </form>
-      </p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="headingTwo">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Form 2
+            </button>
+          </h5>
+        </div>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+          <div class="card-body">
+            <form class="my-2 my-lg-0">
+              <label for="search-id" class="form-label">Search for image!</label>
+                <input id='search-id' name='search' class="form-control mr-sm-2" type="text" placeholder="Search for image by its description">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+              </form>
+          </div>
+        </div>
+      </div>
+      
     </div>
+  </p>
+  </div>
   </section>
 
   <div class="album py-5 bg-light">
     <div class="container">
         <div class="row">
+          {% if images %}
         {% for image in images %}
-        {{ image.image.width }}
-        {{ image.image.height }}
         
-        <div class="col-md-4">
+        
+        <div class="col-md-4" id="image{{ image.pk }}">
             <div class="card mb-4 box-shadow">
               <img class="card-img-top img-responsive" src="{{ image.image.url }}" alt="Card image cap">
               <div class="card-body">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <p class="card-text">{% if image.description %}{{ image.description }}{% endif %}</p>
+                <p class="card-text">Image height: {{ image.image.height }}<br>
+                  Image width: {{ image.image.width }}<br>
+                Image Artist: {% if image.artist %}{{ image.artist|safe }}{% else %}Not provided{% endif %}</p>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Delete</button>
+                    <button class="btn btn-sm btn-outline-secondary" type="submit" onclick="delete_image({{ image.pk }})">Delete</button>
                   </div>
                 </div>
               </div>
@@ -48,6 +88,9 @@
           
     
           {% endfor %}
+          {% else %}
+          No images found!!!jeden11!!
+          {% endif %}
         </div>
     </div>
 </div>

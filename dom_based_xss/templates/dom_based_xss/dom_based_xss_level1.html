@@ -5,8 +5,8 @@
 {% load static %}
 <script src="{% static 'dom_based_xss/js/scripts.js' %}"></script>
 <script src="{% static 'website/js/scripts.js' %}"></script> 
-
-
+<div class="container">
+    
 <img src="{% static 'dom_based_xss/images/facebook.png' %}">
 
 <form id="tweetForm" action="" method="POST">
@@ -20,4 +20,6 @@
 </div>
 <div id="tweet-container"></div>
 </form>
+
+</div>
 {% endblock content %}

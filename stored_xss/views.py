@@ -58,9 +58,14 @@ def level1_create_comment(request):
 def level2_view(request):
     if not challenge_completed(request, '11'):
         raise PermissionDenied
-    mydata = Comment.objects.filter(challenge_assigned='2', stored_xss_module_related=get_module_or_none('stored_xss', request.user.id))
-    context = {'comments': mydata}
-    return render(request, 'stored_xss/level2.html', context)
+    if request.method == 'GET':
+        mydata = Comment.objects.filter(challenge_assigned='2', stored_xss_module_related=get_module_or_none('stored_xss', request.user.id))
+        context = {'comments': mydata}
+        return render(request, 'stored_xss/level2.html', context)
+    elif request.method == 'POST':
+        # update challenge progress
+        update_user_progress(request, '111')
+        return HttpResponse(status=204)
 
 @login_required
 def level2_create_comment(request):
@@ -75,43 +80,43 @@ def level2_create_comment(request):
         }
         Comment.objects.create(**create_data)
         return redirect('stored_xss_level2')
-
+@login_required
 def level3_view(request):
-    if request.method == 'GET':
+    if not challenge_completed(request, '111'):
+        raise PermissionDenied
+    if request.method == 'GET' and 'search' in request.GET:
+        search_query = request.GET.get('search')
+        mydata = Image.objects.filter(description__contains=search_query, stored_xss_module_related=get_module_or_none('stored_xss', request.user.id))
+        context = {'images': mydata}
+        return render(request, 'stored_xss/level3.html', context)
+    elif request.method == 'POST':
+        # update challenge progress
+        update_user_progress(request, '1111')
+        return HttpResponse(status=204)
+    else:
         mydata = Image.objects.filter(stored_xss_module_related=get_module_or_none('stored_xss', request.user.id))
         context = {'images': mydata}
         return render(request, 'stored_xss/level3.html', context)
 
+@login_required
 def level3_image_endpoint(request):
     if request.method == 'POST':
+        #error handling todo:
+        # if 'image' not in request.POST:
+        #     return redirect('stored_xss_level3')
         module_obj = get_module_or_none('stored_xss', request.user.id)
         image = request.FILES['image']
-
-        info_dict = {"Filename": image.filename,
-        "Image Size": image.size,
-        "Image Height": image.height,
-        "Image Width": image.width,
-        "Image Format": image.format,
-        "Image Mode": image.mode,
-        "Image is Animated": getattr(image, "is_animated", False),
-        "Frames in Image": getattr(image, "n_frames", 1)}
-
-        for label,value in info_dict.items():
-            print(f"{label:25}: {value}")
-        exifdata = image.getexif()
-        for tag_id in exifdata:
-            # get the tag name, instead of human unreadable tag id
-            tag = TAGS.get(tag_id, tag_id)
-            data = exifdata.get(tag_id)
-            # decode bytes 
-            if isinstance(data, bytes):
-                data = data.decode()
-            print(f"{tag:25}: {data}")
+        description = request.POST['description']
         create_data = {
             'image': image,
-            'stored_xss_module_related': module_obj
+            'stored_xss_module_related': module_obj,
+            'description': description
         }
-        Image.objects.create(**create_data)
+        x = Image.objects.create(**create_data)
+        # if exif Artist exists add it to database
+        if x.exif():
+            x.artist = x.exif()
+            x.save()
 
         return redirect('stored_xss_level3')
 
@@ -124,8 +129,16 @@ def level1_delete_comment(request, id):
         comment.delete()
         return HttpResponse(status=204)
 
+@login_required
 def level2_delete_comment(request, id):
     if request.method == 'DELETE':
         comment = get_object_or_404(Comment, pk=id, challenge_assigned='2', stored_xss_module_related=get_module_or_none('stored_xss', request.user.id))
+        comment.delete()
+        return HttpResponse(status=204)
+
+@login_required
+def level3_delete_image(request, id):
+    if request.method == 'DELETE':
+        comment = get_object_or_404(Image, pk=id, stored_xss_module_related=get_module_or_none('stored_xss', request.user.id))
         comment.delete()
         return HttpResponse(status=204)
