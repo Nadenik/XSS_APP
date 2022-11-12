@@ -6,20 +6,52 @@
 <script src="{% static 'dom_based_xss/js/scripts.js' %}"></script>
 <script src="{% static 'website/js/scripts.js' %}"></script> 
 <div class="container">
-    
+
 <img src="{% static 'dom_based_xss/images/facebook.png' %}">
 
-<form id="tweetForm" action="" method="POST">
+<form id="textForm" action="" method="POST">
 {% csrf_token %}
 <div class="form-group ml-2">
-    <label for="tweetText">Write your tweet</label>
-    <textarea class="form-control" id="tweetText" rows="3" name="tweetText"></textarea>
+    <label for="text">Write your tweet</label>
+    <textarea class="form-control" id="text" rows="3" name="text"></textarea>
 </div>
 <div class="form-group ml-2">
     <input class="btn btn-primary" type="submit" value="Tweet">
 </div>
-<div id="tweet-container"></div>
 </form>
 
+  <div class="row" id="Row1"> 
+    <div class="col-4" id="text-container">
+        {% for text in texts %}
+        <div id=text{{text.pk}} class='col-12 py-3 mb-4 border-top border-bottom'><p>
+            {{ text }}
+           <br>
+           <button class="btn btn-danger" type="submit" onclick="delete_text({{ text.pk }})">Delete</button>
+        </div>
+        {% endfor %}     
+    </div>
+  </div>
+
+</div>
+
+<div class="modal fade" id="congrats-modal" tabindex="-1" role="dialog" aria-labelledby="congrats-modal-label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="congrats-modal-label">Congratulations</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          You have found a way to execute XSS payload into the site.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <a href='{% url 'reflected_xss_level2' %}'><button type="button" class="btn btn-primary">Next challenge</button></a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock content %}

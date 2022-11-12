@@ -3,9 +3,14 @@
 {% block content %}
 
 {% load static %}
+<style>
+  img{
+    width: 20%;
+  }
+</style>
 <script src="{% static 'website/js/scripts.js' %}"></script> 
-<br>
-<img src="{% static 'reflected_xss/images/google.png' %}" alt="My image">
+<div class="container">
+<img class="img-fluid" src="{% static 'reflected_xss/images/search_engine_logo.png' %}" alt="My image">
 
 <form class="ml-2" action="" method="get">
 <input type="text" name="search" id="search-text">
@@ -18,11 +23,11 @@
 {% if completed %}
 <h1>You have already completed that level</h1>
 {% endif %}
-<div class="modal fade" id="congrats-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="congrats-modal" tabindex="-1" role="dialog" aria-labelledby="congrats-modal-label" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Congratulations</h5>
+          <h5 class="modal-title" id="congrats-modal-label">Congratulations</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -37,4 +42,5 @@
       </div>
     </div>
   </div>
+</div>
 {% endblock content %}

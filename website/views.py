@@ -42,3 +42,7 @@ def profile_view(request):
         'dom_based_xss': dom_xss_object
     }
     return render(request, 'website/profile.html', context)
+
+@login_required
+def rules_view(request):
+    return render(request, 'website/rules.html', {})

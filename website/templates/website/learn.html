@@ -1,27 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1 class="text-center">MODULES</h1>
+<p class="m-5 h1 text-center">Choose module you want to learn.</p>
 <br>
 <div class="card-deck m-2">
 <div class="card text-white bg-dark" style="width: 18rem;">
   <div class="card-body">
     <h5 class="card-title">Reflected XSS Module</h5>
-    <p class="card-text">Some brief description of how Reflected XSS works.</p>
+    <p class="card-text">Occures when user input is "reflected" on website.</p>
     <a href="{% url 'reflected_xss' %}" class="card-link">Challenge me!</a>
   </div>
 </div>
 <div class="card text-white bg-dark" style="width: 18rem;">
   <div class="card-body">
     <h5 class="card-title">Stored XSS Module</h5>
-    <p class="card-text">Some brief description of how Stored XSS works.</p>
+    <p class="card-text">Usually most dangerous one. Is stored in database.</p>
     <a href="{% url 'stored_xss' %}" class="card-link">Challenge me!</a>
   </div>
 </div>
 <div class="card text-white bg-dark" style="width: 18rem;">
   <div class="card-body">
-    <h5 class="card-title">DOM-Based XSS Module</h5>
-    <p class="card-text">Some brief description of how DOM-Based XSS works</p>
+    <h5 class="card-title">DOM Based XSS Module</h5>
+    <p class="card-text">Happens when input is created on website by DOM API</p>
     <a href="{% url 'dom_based_xss' %}" class="card-link">Challenge me!</a>
   </div>
 </div>
