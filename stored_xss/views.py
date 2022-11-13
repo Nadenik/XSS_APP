@@ -52,7 +52,7 @@ def level1_create_comment(request):
             'challenge_assigned': '1',
         }
         Comment.objects.create(**create_data)
-        return redirect('stored_xss_level1')
+        return redirect('/learn/stored_xss/level1#comment')
 
 @login_required
 def level2_view(request):
@@ -79,7 +79,7 @@ def level2_create_comment(request):
             'challenge_assigned': '2',
         }
         Comment.objects.create(**create_data)
-        return redirect('stored_xss_level2')
+        return redirect('/learn/stored_xss/level2#comment')
 @login_required
 def level3_view(request):
     if not challenge_completed(request, '111'):

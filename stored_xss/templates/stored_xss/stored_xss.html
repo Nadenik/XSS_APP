@@ -1,20 +1,50 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Stored XSS module</h1>
-<div class="list-group mr-2 ml-2"> 
-  <a href="{% url 'stored_xss_introduction' %}" class="list-group-item list-group-item-action list-group-item-{% if module.challenge_completition >= 1 %}success{% else %}secondary{% endif %} mb-1">Introduction</a>
-  {% if module.challenge_completition >= 1 %}
-  <a href="{% url 'stored_xss_level1' %}" class="list-group-item list-group-item-action list-group-item-{% if module.challenge_completition >= 3 %}success{% else %}secondary{% endif %} mb-1">Level 1</a>
-  {% endif %}
-  {% if module.challenge_completition >= 3 %}
-  <a href="{% url 'stored_xss_level2' %}" class="list-group-item list-group-item-action list-group-item-{% if module.challenge_completition >= 7 %}success{% else %}dark{% endif %}">Level 2</a>
+
+<p class="h1 text-center m-3">Stored XSS module</p>
+
+<div class="bd-example">
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th scope="col">Challenge</th>
+      <th scope="col">Status</th>
+    </tr>
+    </thead>
+    <tbody>
+      
+    <tr class="{% if module.challenge_completition >= 1 %}table-success{% else %}table-secondary{% endif %}">
+      
+      <th scope="row"><a href="{% url 'stored_xss_introduction' %}">Introduction</a></th>
+      <td>{% if module.challenge_completition >= 1 %}Completed{% else %}Uncompleted{% endif %}</td>
+    </tr>
   
- 
-  {% endif %}
-  {% if module.challenge_completition >= 7 %}
-  <a href="{% url 'stored_xss_level3' %}" class="list-group-item list-group-item-action list-group-item-{% if module.challenge_completition >= 15 %}success{% else %}dark{% endif %}">Level 3</a>
- 
-  {% endif %}
-</div>
+    {% if module.challenge_completition >= 1 %}
+
+    <tr class="{% if module.challenge_completition >= 3 %}table-success{% else %}table-light{% endif %}">
+      <th scope="row"><a href="{% url 'stored_xss_level1' %}">Stored 01</a></th>
+      <td>{% if module.challenge_completition >= 3 %}Completed{% else %}Uncompleted{% endif %}</td>
+       </tr>
+       {% endif %}
+
+       {% if module.challenge_completition >= 3 %}
+    <tr class="{% if module.challenge_completition >= 7 %}table-success{% else %}table-light{% endif %}">
+      <th scope="row"><a href="{% url 'stored_xss_level2' %}">Stored 02</a></th>
+      <td>{% if module.challenge_completition >= 7 %}Completed{% else %}Uncompleted{% endif %}</td>
+    </tr>
+    {% endif %}
+
+    {% if module.challenge_completition >= 7 %}
+    <tr class="{% if module.challenge_completition >= 15 %}table-success{% else %}table-light{% endif %}">
+      <th scope="row"><a href="{% url 'stored_xss_level3' %}">Stored 03</a></th>
+      <td>{% if module.challenge_completition >= 15 %}Completed{% else %}Uncompleted{% endif %}</td>
+    </tr>
+    {% endif %}
+
+
+
+    </tbody>
+  </table>
+  </div>
 {% endblock content %}

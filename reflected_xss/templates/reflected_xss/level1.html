@@ -9,20 +9,20 @@
   }
 </style>
 <script src="{% static 'website/js/scripts.js' %}"></script> 
-<div class="container">
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+  <h1 class="display-4">Custom search engine</h1>
+  <p class="lead">Welcome to our search engine! We are sure you will find some exciting websites here!</p>
+
 <img class="img-fluid" src="{% static 'reflected_xss/images/search_engine_logo.png' %}" alt="My image">
 
-<form class="ml-2" action="" method="get">
-<input type="text" name="search" id="search-text">
-<input type="submit" value="Search">
+<form class="ml-2 form-group" action="" method="get">
+    <input type="text" class="mt-3" name="search" id="search-text">
+<input type="submit" class="btn btn-primary" value="Search">
 </form>
-<br>
 {% if search %}
-<p class="ml-2">No results found for {{ search|safe }}</p>
+<p class="m-3 lead">No results found for {{ search|safe }}</p>
 {% endif %}
-{% if completed %}
-<h1>You have already completed that level</h1>
-{% endif %}
+</div>
 <div class="modal fade" id="congrats-modal" tabindex="-1" role="dialog" aria-labelledby="congrats-modal-label" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -42,5 +42,4 @@
       </div>
     </div>
   </div>
-</div>
 {% endblock content %}
