@@ -89,7 +89,7 @@
     
           {% endfor %}
           {% else %}
-          No images found!!!jeden11!!
+          No images found{% if query %} for {{ query }}{% endif %}
           {% endif %}
         </div>
     </div>

@@ -8,11 +8,11 @@
 {% if user.is_authenticated %}
     <div class="jumbotron">
       <div class="container">
-        <h1 class="display-3">Welcome back {{user.username}}!</h1>
-        <p><a class="btn btn-primary btn-lg" href="{% url 'learn' %}" role="button">Learn! &raquo;</a></p>
+        <h1 class="display-3">Welcome {{user.username}}!</h1>
+        <p><a class="btn btn-primary btn-lg" href="{% url 'learn' %}" role="button">Continue learning &raquo;</a></p>
       </div>
     </div>
-    <div class="container">
+    {% comment %} <div class="container">
       <p class="lead text-muted">Consider reading more about XSS on external sites!
         
       </p>
@@ -34,7 +34,7 @@
             <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
           </div>
         </div>  
-      </div>
+      </div> {% endcomment %}
     {% else %}
     <section class="jumbotron text-center">
         <div class="container">

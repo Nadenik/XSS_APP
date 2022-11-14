@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% load static %}
+<link rel="stylesheet" type='text/css' href="{% static 'website/css/styles.css' %}">
 <p class="m-5 h1 text-center">Choose module you want to learn.</p>
 <br>
 <div class="card-deck m-2">
@@ -26,7 +28,53 @@
   </div>
 </div>
 </div>
-
-
 <br>
+
+{% if rules %}
+<script>
+  $(document).ready(function(){
+      $("#exampleModalLong").modal('show');
+  });
+</script>
+
+<div class="modal fade show" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Welcome in modules section!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <main role="main" class="container">
+          
+          <p class="lead">Here are some general rules you need to know about while solving challenges. These rules apply to all challenges:</p><br>
+          <p>
+              <ul class="icon-list">
+                  <li>To successfully pass a challenge you need to find a way to execute javascript xss() function without using console ;)</li>
+                  <br>
+                  <li>First challenge of each module is Introduction, no need to inject any payload there.</li>
+                  <br>
+                  <li>If you pass the challenge successfully you will be prompted with congratulations alert.</li>
+                  <br>
+                  <li>In page source you will find highlighted section that is related to challenge. You don't need to investigate whole source code.</li>
+                  <br>
+                  <hr>
+                  <p class="lead">Good luck!</p><br>
+                  <blockquote class="blockquote">
+                      <p class="mb-0">Progress is not achieved by luck or accident, but by working on yourself daily.</p>
+                      <footer class="blockquote-footer">Epictetus, Ancient Greek Stoic philosopher</footer>
+                    </blockquote>
+                </ul>
+          </p>
+        </main>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
 {% endblock content %}

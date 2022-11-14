@@ -47,3 +47,11 @@ def challenge_completed(request, required_completition_number):
         return True
     else:
         return False
+
+# returns true if there is a need to display rules to user(if any module is started return false)
+
+def read_rules(user):
+    if ReflectedXssModule.objects.filter(user = user).exists() or DomBasedXssModule.objects.filter(user = user).exists() or StoredXssModule.objects.filter(user = user).exists():
+        return False
+    else:
+        return True

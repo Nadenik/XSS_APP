@@ -87,7 +87,8 @@ def level3_view(request):
     if request.method == 'GET' and 'search' in request.GET:
         search_query = request.GET.get('search')
         mydata = Image.objects.filter(description__contains=search_query, stored_xss_module_related=get_module_or_none('stored_xss', request.user.id))
-        context = {'images': mydata}
+        context = {'images': mydata,
+        'query': search_query}
         return render(request, 'stored_xss/level3.html', context)
     elif request.method == 'POST':
         # update challenge progress

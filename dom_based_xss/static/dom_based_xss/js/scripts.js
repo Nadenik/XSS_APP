@@ -1,9 +1,9 @@
 window.onload=function(){
-    document.getElementById('textForm').addEventListener("submit", handleTweetSubmit);
+    document.getElementById('textForm').addEventListener("submit", handleTwettSubmit);
   }
 
 
-function handleTweetSubmit(e)
+function handleTwettSubmit(e)
 {
     e.preventDefault()
     const myForm = e.target
@@ -35,9 +35,9 @@ function handleTweetSubmit(e)
 
 function prepare_tweet(text, id)
 {
-    return `<div id=device${id} class='col-12 py-3 mb-4 border-top border-bottom'><p>
+    return `<p id=text${id} class="col-12 py-3 mb-4 border-top border-bottom lead">
     ${text}
-   <br><a href='' button type="button" class="btn btn-danger" >Delete</a></div>`
+   <button type="submit" class="btn btn-danger float-right btn-sm" onclick="delete_text(${id})">Delete</button></p>`
 }
 
 

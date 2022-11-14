@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
-from utils.utils import get_module_or_none
+from utils.utils import get_module_or_none, read_rules
 
 
 def sign_up_view(request):
@@ -29,7 +29,11 @@ def index(request):
 
 @login_required
 def learn_view(request):
-    return render(request, 'website/learn.html', {})
+    context = {}
+    # check if there is a need to show rules to user
+    if read_rules(request.user) == True:
+        context.update({'rules': True})
+    return render(request, 'website/learn.html', context)
 
 @login_required
 def profile_view(request):
