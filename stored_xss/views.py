@@ -101,12 +101,14 @@ def level3_view(request):
 
 @login_required
 def level3_image_endpoint(request):
+    if not challenge_completed(request, '111'):
+        raise PermissionDenied
     if request.method == 'POST':
-        #error handling todo:
-        # if 'image' not in request.POST:
-        #     return redirect('stored_xss_level3')
+        try:
+            image = request.FILES['image']
+        except:
+            return redirect('stored_xss_level3')
         module_obj = get_module_or_none('stored_xss', request.user.id)
-        image = request.FILES['image']
         description = request.POST['description']
         create_data = {
             'image': image,

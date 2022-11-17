@@ -25,7 +25,15 @@ def sign_up_view(request):
 
 
 def index(request):
-    return render(request, 'website/index.html', {})
+    reflected_xss_object = get_module_or_none('reflected_xss', request.user.id)
+    stored_xss_object = get_module_or_none('stored_xss', request.user.id)
+    dom_xss_object = get_module_or_none('dom_based_xss', request.user.id)
+    context = {
+        'reflected_xss': reflected_xss_object,
+        'stored_xss': stored_xss_object,
+        'dom_based_xss': dom_xss_object
+    }
+    return render(request, 'website/index.html', context)
 
 @login_required
 def learn_view(request):

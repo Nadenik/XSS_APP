@@ -8,7 +8,9 @@ var delete_comment = function (id)
 {
 	const xhr = new XMLHttpRequest()
     const method = 'DELETE'
-    const url = `level1_delete_comment/${id}`
+    // /learn/stored_xss/level2
+    level = window.location.pathname.split('/')[3]
+    const url = `${level}_delete_comment/${id}`
     const csrftoken = getCookie('csrftoken')
     
     xhr.open(method, url)

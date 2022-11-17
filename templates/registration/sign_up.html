@@ -2,6 +2,7 @@
 
 {% block content %}
 {% load crispy_forms_tags %}
+<div class="container">
 <div class="m-5">
 <form method="post">
     {% csrf_token %}
@@ -15,5 +16,5 @@
     <span>Already have an account? <a href="{% url 'login' %}" class="link-primary">Login!</a></span>
     </p>
 </div>
-
+</div>
 {% endblock content %}

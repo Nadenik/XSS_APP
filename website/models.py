@@ -17,12 +17,6 @@ class Module(models.Model):
     class Meta:
         abstract = True
 
-# I dont think it is wanted
-# class Challenge(models.Model):
-#     name = models.CharField(max_length=30)
-#     is_completed = models.BooleanField(default=False)
-#     module = models.ForeignKey(Module, on_delete=models.CASCADE)
-
 class ReflectedXssModule(Module):
     name = models.CharField(max_length=30, default='reflected_xss')
     # progress in %
