@@ -80,13 +80,15 @@ def level2_create_comment(request):
         }
         Comment.objects.create(**create_data)
         return redirect('/learn/stored_xss/level2#comment')
+
 @login_required
 def level3_view(request):
     if not challenge_completed(request, '111'):
         raise PermissionDenied
     if request.method == 'GET' and 'search' in request.GET:
         search_query = request.GET.get('search')
-        mydata = Image.objects.filter(description__contains=search_query, stored_xss_module_related=get_module_or_none('stored_xss', request.user.id))
+        mydata = Image.objects.filter(description__contains=search_query, 
+        stored_xss_module_related=get_module_or_none('stored_xss', request.user.id))
         context = {'images': mydata,
         'query': search_query}
         return render(request, 'stored_xss/level3.html', context)

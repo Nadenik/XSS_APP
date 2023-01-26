@@ -20,11 +20,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
     path('', include('website.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/sign_up/', sign_up_view, name='sign_up'),
     path('learn/', include('reflected_xss.urls')),
     path('learn/', include('dom_based_xss.urls')),
     path('learn/', include('stored_xss.urls'))
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+

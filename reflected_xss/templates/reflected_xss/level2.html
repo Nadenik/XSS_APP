@@ -23,10 +23,12 @@
 
 <!-- Challenge related code -->
 <script src="{% static 'reflected_xss/js/scripts.js' %}"></script>
+
 <form class="ml-2" action="" method="get" onsubmit="sanitizeForm()">
   <input type="text" class="mt-3" name="search" id="search-text">
   <input type="submit" class="btn btn-primary" value="Search">
 </form>
+
 {% if search %}
 <p class="m-2 lead">No results found for {{ search|safe }}</p>
 {% endif %}

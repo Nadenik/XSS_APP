@@ -1,7 +1,12 @@
+
+
 var sanitizeForm = function () {
-	document.getElementById("comment-id").value = document.getElementById("comment-id").value.replace(/[^\w. ]/gi, function (c) {
+  commentText = document.getElementById("comment-id").value
+  commentText = commentText.replace(/[^\w. ]/gi, function (c) {
 		return '&#' + c.charCodeAt(0) + ';';
 	});
+	// document.getElementById("comment-id").value = document.getElementById("comment-id").value.replace(/[^\w. ]/gi, function (c) {
+	// 	return '&#' + c.charCodeAt(0) + ';';
 };
 
 var delete_comment = function (id) 

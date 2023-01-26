@@ -7,7 +7,6 @@ import PIL.ExifTags
 
 class Comment(models.Model):
     comment = models.CharField(max_length=200)
-    # every comments has an id of its related stored_xss_module
     stored_xss_module_related = models.ForeignKey(StoredXssModule, null=False, blank=False, on_delete=models.CASCADE)
     challenges = (
         ('1', 'level1'),
@@ -17,8 +16,8 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.comment
-    # i need to seperate levels, 
 
+        
 class Image(models.Model):
     image = models.ImageField()
     description = models.TextField(null=True, blank=True)
@@ -33,3 +32,4 @@ class Image(models.Model):
         if 315 in exifdata:
             return exifdata.get(315)
         
+

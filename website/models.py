@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 
-class Module(models.Model):
+class AbstractModule(models.Model):
     is_completed = models.BooleanField(default=False)
     challenge_completition = models.IntegerField(default=0)
     user = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE)
@@ -17,7 +17,7 @@ class Module(models.Model):
     class Meta:
         abstract = True
 
-class ReflectedXssModule(Module):
+class ReflectedXssModule(AbstractModule):
     name = models.CharField(max_length=30, default='reflected_xss')
     # progress in %
     def get_progress(self):
@@ -26,7 +26,7 @@ class ReflectedXssModule(Module):
         x = "{0:b}".format(self.challenge_completition).count("1")
         return int((x/number)*100)
 
-class DomBasedXssModule(Module):
+class DomBasedXssModule(AbstractModule):
     name = models.CharField(max_length=30, default='dom_based_xss')
     # progress in %
     def get_progress(self):
@@ -35,7 +35,7 @@ class DomBasedXssModule(Module):
         x = "{0:b}".format(self.challenge_completition).count("1")
         return int((x/number)*100)
 
-class StoredXssModule(Module):
+class StoredXssModule(AbstractModule):
     name = models.CharField(max_length=30, default='stored_xss')
     # progress in %
     def get_progress(self):
